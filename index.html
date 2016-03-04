@@ -1,1 +1,56 @@
-<h1>hello world</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://cdn.bootcss.com/react/0.14.7/react.min.js"></script>
+    <script src="http://cdn.bootcss.com/react/0.14.7/react-dom.min.js"></script>
+    <script src="http://cdn.bootcss.com/babel-core/5.8.33/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script type="text/babel">
+      var Button = React.createClass({
+        handleClick: function(event){
+          event.stopPropagation();
+          event.preventDefault();
+          var toggle=this.refs.show;
+          if(toggle.style.display==="none") {
+            toggle.style.display ="inline"
+          }else {
+            toggle.style.display="none"
+          }
+        },
+        render: function () {
+          return (<div>
+              <button onClick={this.handleClick}>显示|隐藏</button>
+              <span ref="show">显示|隐藏</span>
+            </div>)
+        }
+      });
+      var Input = React.createClass({
+        getInitialState: function(){
+          return {textInput:""}
+        },
+        handleChange: function(event){
+          event.stopPropagation();
+          event.preventDefault();
+          this.setState({
+            textInput: event.target.value
+          })
+        },
+        render:function(){
+          return <div><input onChange={this.handleChange} type="text"/><span>{this.state.textInput}</span></div>
+        }
+      });
+
+      ReactDOM.render(
+        <div>
+          <Button/>
+          <Input/>
+        </div>,
+        document.getElementById('container')
+      )
+    </script>
+  </body>
+</html>
